@@ -3,6 +3,7 @@ import { ItemAnswer } from '../components/ItemAnswer';
 import { useDispatch, useSelector } from 'react-redux';
 import { alphabet } from '../utils/constants';
 import { addAnswer } from '@actions/answer.actions';
+import { addCorrectAnswers, addWrongAnswers } from '@actions/score.actions';
 
 export const QuestionView = ({ nextQuestion }) => {
   const dispatch = useDispatch();
@@ -57,6 +58,11 @@ export const QuestionView = ({ nextQuestion }) => {
       dispatch(addAnswer(
         id, selectedAnswer.isCorrect, selectedAnswer.id, 15, 1
       ));
+      if (selectedAnswer?.isCorrect) {
+        dispatch(addCorrectAnswers())
+      } else {
+        dispatch(addWrongAnswers())
+      }
       setWasAnswered(true);
     } else {
       alert('Selecciona una respuesta');
