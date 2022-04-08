@@ -1,0 +1,18 @@
+export const TYPES = {
+
+  ANSWER_SELECT: {
+    MOUNT: '[ANSWER_SELECT] MOUNT',
+    REMOVE: '[ANSWER_SELECT] REMOVE'
+  },
+  QUESTIONS: {},
+  SCORE: {},
+  ANSWERS: {
+    ADD: '[ANSWERS] ADD',
+  },
+  USER: {
+    LOGGIN: '[USER] LOGGIN',
+    LOGOUT: '[USER] LOGOUT',
+    CHANGE_NAME: '[USER] CHANGE NAME',
+  }
+
+}
