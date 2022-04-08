@@ -1,0 +1,15 @@
+.navbar {
+  position: absolute;
+  top: 0px;
+  display: flex;
+  background: white;
+  width: 98vw;
+  padding: 1rem;
+  justify-content: space-between;
+
+  .navbar__start,
+  .navbar__end {
+    padding: 0 1rem;
+  }
+
+}
