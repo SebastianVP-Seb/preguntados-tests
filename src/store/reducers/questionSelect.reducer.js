@@ -34,7 +34,6 @@ export const questionSelectReducer = ( state = initialState, action ) => {
 
     case TYPES.ANSWER_SELECT.MOUNT:
       return {
-        ...state,
         ...action.payload
       }
     default:
