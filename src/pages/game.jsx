@@ -3,23 +3,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { questionSelectAction } from '@actions/questionSelectActtion';
 import { Card } from '../components/card';
 import { QuestionView } from './QuestionView';
+import { setCurrentQuestionIndex } from '@actions/gameStatus.action';
 
 export const Game = () => {
-  const { questionSelectReducer, questionsReducer } = useSelector(state => state);
-  const [indexQuestion, setIndexQuestion] = useState(0);
+  const { questionSelectReducer, questionsReducer, gameStatusReducer } = useSelector(state => state);
+  const { currentQuestionIndex } = gameStatusReducer;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(
-      questionSelectAction(questionsReducer[indexQuestion])
+      questionSelectAction(questionsReducer[currentQuestionIndex])
     );
-  }, [indexQuestion]);
+  }, [currentQuestionIndex]);
 
   const nextQuestion = () => {
     // TODO: validar que no se desborde el array
     // mandar el resultado de las preguntas
-    setIndexQuestion(prev => prev + 1)
+    dispatch(setCurrentQuestionIndex(currentQuestionIndex + 1));
     // if ( questionsReducer.lenght < indexQuestion ) {
     // } else {
     //   alert('No hay mas preguntas');
