@@ -3,20 +3,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { questionSelectAction } from '@actions/questionSelectActtion';
 import { Card } from '../components/card';
 import { QuestionView } from './QuestionView';
+import { addTotalQuestionsAction } from '@actions/score.actions';
 
 export const Game = () => {
-  const { questionSelectReducer, questionsReducer } = useSelector(state => state);
+  const { questionSelectReducer, questionsReducer, userReducer } = useSelector(state => state);
   const [indexQuestion, setIndexQuestion] = useState(0);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(
-      questionSelectAction(questionsReducer[indexQuestion])
-    );
-  }, [indexQuestion]);
+    if (userReducer.id) {
+      dispatch(
+        questionSelectAction(questionsReducer[indexQuestion])
+      );
+    }
+  }, [indexQuestion, userReducer]);
 
-  const nextQuestion = () => {
+  useEffect(() => {
+    if (userReducer.id) {
+      dispatch(addTotalQuestionsAction(
+        questionsReducer.length
+      ))
+    }
+  }, [userReducer, questionsReducer]);
+
+  const nextQuestion = () => {addTotalQuestionsAction
     // TODO: validar que no se desborde el array
     // mandar el resultado de las preguntas
     setIndexQuestion(prev => prev + 1)
