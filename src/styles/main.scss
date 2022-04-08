@@ -9,11 +9,19 @@ $info: #b3831e;
 
 $white_card: #e8e8e8;
 $font-color: darken($color: $primary, $amount: 10);
+$font-poppins: 'Poppins', sans-serif;
+
 
 * {
   color: $font-color;
+  font-family: $font-poppins;
 }
 
+body{
+  margin: 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 @import 'App.scss';
 @import 'questionView.scss';
 @import 'components/card.scss';
