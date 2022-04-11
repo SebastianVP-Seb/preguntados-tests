@@ -1,5 +1,14 @@
 const { TYPES } = require("../types/typesReducer");
 
+
+export const isCorrectAnswer = (answerCorrect) => dispatch => {
+  if (answerCorrect) {
+    dispatch(addCorrectAnswers())
+  } else {
+    dispatch(addWrongAnswers())
+  }
+}
+
 export const addTotalQuestionsAction = (totalQuestions) => ({
   type: TYPES.SCORE.TOTAL_QUESTION,
   payload: totalQuestions
