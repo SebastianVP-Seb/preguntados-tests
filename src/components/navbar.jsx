@@ -1,14 +1,15 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLoggOutAction } from '@actions/user.actions';
 import { QuestionSelector } from './question-selector';
+import { userLoggOutAction, userLoggOutAction2 } from '@actions/user.actions';
 
 export const Navbar = () => {
   const dispatch = useDispatch();
   const { name } = useSelector(state => state.userReducer);
 
   const handleLogout = () => {
-    dispatch(userLoggOutAction());
+    // dispatch(userLoggOutAction());
+    dispatch(userLoggOutAction2());
   }
 
   return (

@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { questionSelectAction } from '@actions/questionSelectActtion';
+import { mountQuestionByIndex } from '@actions/questionSelectActtion';
 import { Card } from '../components/card';
 import { QuestionView } from './QuestionView';
+import { getQuestions } from '@actions/questions.actions';
 import { setCurrentQuestionIndex } from '@actions/gameStatus.action';
 
 export const Game = () => {
-  const { questionSelectReducer, questionsReducer, gameStatusReducer } = useSelector(state => state);
+  const { questionSelectReducer, userReducer, gameStatusReducer } = useSelector(state => state);
   const { currentQuestionIndex } = gameStatusReducer;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(
-      questionSelectAction(questionsReducer[currentQuestionIndex])
-    );
-  }, [currentQuestionIndex]);
+    if ( userReducer.id ) {
+      dispatch(getQuestions());
+    }
+  }, [userReducer]);
+
+  useEffect(() => {
+    dispatch( mountQuestionByIndex(currentQuestionIndex) );
+  }, [ currentQuestionIndex ]);
 
   const nextQuestion = () => {
     // TODO: validar que no se desborde el array

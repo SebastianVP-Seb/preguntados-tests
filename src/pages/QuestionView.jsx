@@ -2,7 +2,8 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ItemAnswer } from '../components/ItemAnswer';
 import { useDispatch, useSelector } from 'react-redux';
 import { alphabet } from '../utils/constants';
-import { addAnswer } from '@actions/answer.actions';
+import { saveAnswer } from '@actions/answer.actions';
+import { isCorrectAnswer } from '@actions/score.actions';
 
 export const QuestionView = ({ nextQuestion }) => {
   const dispatch = useDispatch();
@@ -54,9 +55,8 @@ export const QuestionView = ({ nextQuestion }) => {
           return answer;
         }
       ));
-      dispatch(addAnswer(
-        id, selectedAnswer.isCorrect, selectedAnswer.id, 15, 1
-      ));
+      dispatch(saveAnswer(id, selectedAnswer.isCorrect, selectedAnswer.id, 15, 1));
+      dispatch(isCorrectAnswer(selectedAnswer?.isCorrect));
       setWasAnswered(true);
     } else {
       alert('Selecciona una respuesta');
