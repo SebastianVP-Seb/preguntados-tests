@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ItemAnswer } from '../components/ItemAnswer';
 import { useDispatch, useSelector } from 'react-redux';
 import { alphabet } from '../utils/constants';
@@ -8,20 +8,28 @@ import { isCorrectAnswer } from '@actions/score.actions';
 export const QuestionView = ({ nextQuestion }) => {
   const dispatch = useDispatch();
 
-  const { questionSelectReducer } = useSelector(state => state);
+  const { questionSelectReducer, answersReducer } = useSelector(state => state);
 
   const { question, answers, id, feedback } = questionSelectReducer;
 
   const sorterAnswers = useMemo(() =>
     [...answers]
       .sort(() => Math.random() - 0.5)
-      .map((item, i) => ({ ...item, index: alphabet[i], status: '' }))
+      .map((item, i) => ({ ...item, index: alphabet[i] }))
     , [answers]
   );
 
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const previousAnswerInformation = answersReducer.find(
+    answer => answer.questionId === id
+  );
+
   const [answersState, setAnswersState] = useState(sorterAnswers);
-  const [wasAnswered, setWasAnswered] = useState(false);
+  const previousAnswer = (previousAnswerInformation) ? answersState.find(
+    opt => opt.id === previousAnswerInformation.answerSelect
+  ) : null;
+
+  const [wasAnswered, setWasAnswered] = useState(previousAnswer !== null);
+  const [selectedAnswer, setSelectedAnswer] = useState(previousAnswer);
 
   const getColorClass = (answer) => {
     if (wasAnswered && answer.isCorrect) {
@@ -39,16 +47,9 @@ export const QuestionView = ({ nextQuestion }) => {
 
   useEffect(() => {
     setAnswersState(sorterAnswers);
-    setWasAnswered(false);
-  }, [questionSelectReducer]);
-
-  const handleChangeStatus = useCallback((id) => {
-    !wasAnswered && setAnswersState(answer =>
-      answer.map(item => item.id === id
-        ? { ...item, status: 'selected' }
-        : { ...item, status: '' })
-    );
-  }, [wasAnswered]);
+    setSelectedAnswer(previousAnswer);
+    setWasAnswered(!!previousAnswer);
+  }, [sorterAnswers, previousAnswer]);
 
   const gradeQuestionAndSaveAnswer = () => {
     dispatch(saveAnswer(id, selectedAnswer.isCorrect, selectedAnswer.id, 15, 1));
@@ -83,7 +84,7 @@ export const QuestionView = ({ nextQuestion }) => {
             index={answer.index}
             title={answer.title}
             status={getColorClass(answer)}
-            handleChangeStatus={() => setSelectedAnswer(answer)}
+            handleChangeStatus={() => setAnswersState(answer)}
           />
         ))}
       </div>
