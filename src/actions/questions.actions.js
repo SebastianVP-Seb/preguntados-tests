@@ -3,9 +3,12 @@ import { mountQuestionByIndex } from "./questionSelectActtion"
 import { addTotalQuestionsAction } from "./score.actions"
 
 export const getQuestions = () => dispatch => {
-  return fetch('https://625448d019bc53e2347bf24d.mockapi.io/api/questions/questions_data')
+
+  const URL = process.env.HOST_BACKEND;
+
+  return fetch(`${URL}/api/questions`)
     .then(resolve => resolve.json())
-    .then(([{ data }]) => {
+    .then(({ data }) => {
       dispatch(setQuestionsAction(data));
       dispatch(addTotalQuestionsAction(data.length));
       dispatch(mountQuestionByIndex(0));
@@ -13,7 +16,7 @@ export const getQuestions = () => dispatch => {
     .catch();
 }
 
-// Sigtaru for Reducer
+// Signature for Reducer
 const setQuestionsAction = (questions) => ({
   type: TYPES.QUESTIONS.ADD,
   payload: questions

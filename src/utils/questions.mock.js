@@ -1,4 +1,4 @@
-export const questions = [
+const questions = [
   {
     id: 'd2bd1dbc-130d-4436-aed8-54104796d4ef',
     question: '¿Cuántos decimales tiene el número pi π?',
@@ -6,7 +6,8 @@ export const questions = [
     answers: [
       {
         id: '61911842',
-        title: 'Dos',
+        // title: 'Dos',
+        title: 'UN MILLON',
         isCorrect: false
       },
       {
@@ -243,3 +244,6 @@ export const questions = [
     ]
   },
 ]
+
+
+module.exports = { questions };
