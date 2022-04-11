@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { userLogginAction } from '@actions/user.actions';
+import { userLoginAction2 } from '@actions/user.actions';
 
 const initialInfoAlert = {type: '', message: ''};
 
@@ -13,7 +13,7 @@ export const Login = () => {
     e.preventDefault();
     const form = Object.fromEntries(new FormData(e.target));
     if (form.name) {
-      dispatch( userLogginAction(form) );
+      dispatch( userLoginAction2(form) );
       setInfoAlert(initialInfoAlert);
     } else {
       setInfoAlert({type: 'danger', message: 'Escribe un nombre valido'});
