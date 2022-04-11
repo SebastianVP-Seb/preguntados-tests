@@ -37,7 +37,7 @@ export const QuestionSelector = () => {
           onClick={() => onChangeQuestionIndex(question, index)}
           className={`questionSelectorItem ${getQuestionStateClasses(question)}`}
         >
-          {index}
+          {index + 1}
         </p>
       ))
     }
