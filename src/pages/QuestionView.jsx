@@ -18,8 +18,24 @@ export const QuestionView = ({ nextQuestion }) => {
       .map((item, i) => ({ ...item, index: alphabet[i], status: '' }))
     , [answers]
   );
+
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answersState, setAnswersState] = useState(sorterAnswers);
   const [wasAnswered, setWasAnswered] = useState(false);
+
+  const getColorClass = (answer) => {
+    if (wasAnswered && answer.isCorrect) {
+      return 'success';
+    }
+
+    const answerId = answer.id;
+    const currentIsSelected = answerId === selectedAnswer?.id;
+
+    if (wasAnswered && !answer.isCorrect && currentIsSelected) {
+      return 'danger';
+    }
+    return (currentIsSelected) ? 'selected' : '';
+  }
 
   useEffect(() => {
     setAnswersState(sorterAnswers);
@@ -34,32 +50,21 @@ export const QuestionView = ({ nextQuestion }) => {
     );
   }, [wasAnswered]);
 
-  const handleOnClick = () => {
-    wasAnswered ? nextQuestion() : sendQuestion();
+  const gradeQuestionAndSaveAnswer = () => {
+    dispatch(saveAnswer(id, selectedAnswer.isCorrect, selectedAnswer.id, 15, 1));
+    dispatch(isCorrectAnswer(selectedAnswer?.isCorrect));
   };
 
-  const sendQuestion = () => {
-    const selectedAnswers = answersState
-      .filter(answer => answer.status === 'selected');
-    const hasAnswer = selectedAnswers.length > 0;
-    if (hasAnswer) {
-      const selectedAnswer = selectedAnswers[0];
-      setAnswersState(previous => previous.map(
-        answer => {
-          if (answer.isCorrect) {
-            return { ...answer, status: 'success' };
-          }
-          if (!answer.isCorrect && answer.id === selectedAnswer.id) {
-            return { ...answer, status: 'danger' };
-          }
-          return answer;
-        }
-      ));
-      dispatch(saveAnswer(id, selectedAnswer.isCorrect, selectedAnswer.id, 15, 1));
-      dispatch(isCorrectAnswer(selectedAnswer?.isCorrect));
-      setWasAnswered(true);
-    } else {
+  const handleOnClick = () => {
+    if (!selectedAnswer) {
       alert('Selecciona una respuesta');
+      return;
+    }
+    if (!wasAnswered) {
+      setWasAnswered(true);
+      gradeQuestionAndSaveAnswer();
+    } else {
+      nextQuestion();
     }
   };
 
@@ -68,8 +73,8 @@ export const QuestionView = ({ nextQuestion }) => {
       <div className="section_question--title">
         <p>{question}</p>
       </div>
-        { wasAnswered &&
-          <p className='section_question--feedback'>{feedback}</p>}
+      {wasAnswered &&
+        <p className='section_question--feedback'>{feedback}</p>}
       <div className="answer__container">
         {answersState.map(answer => (
           <ItemAnswer
@@ -77,8 +82,8 @@ export const QuestionView = ({ nextQuestion }) => {
             id={answer.id}
             index={answer.index}
             title={answer.title}
-            status={answer.status}
-            handleChangeStatus={handleChangeStatus}
+            status={getColorClass(answer)}
+            handleChangeStatus={() => setSelectedAnswer(answer)}
           />
         ))}
       </div>
