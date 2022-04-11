@@ -84,7 +84,11 @@ export const QuestionView = ({ nextQuestion }) => {
             index={answer.index}
             title={answer.title}
             status={getColorClass(answer)}
-            handleChangeStatus={() => setAnswersState(answer)}
+            handleChangeStatus={() => {
+              if (!previousAnswer) {
+                setSelectedAnswer(answer);
+              }
+            }}
           />
         ))}
       </div>
