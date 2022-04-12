@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { QuestionSelector } from './question-selector';
 import { userLoggOutAction, userLoggOutAction2 } from '@actions/user.actions';
 
 export const Navbar = () => {
@@ -18,6 +19,7 @@ export const Navbar = () => {
         <div className="navbar__start">
           Hola, {name}
         </div>
+        <QuestionSelector />
         <div className="navbar__end">
           <button
             className='button is-secondary'
