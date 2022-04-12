@@ -33,7 +33,7 @@ export const QuestionSelector = () => {
     {
       questions.map((question, index) => (
         <p
-          key={index}
+          key={question.id}
           onClick={() => onChangeQuestionIndex(question, index)}
           className={`questionSelectorItem ${getQuestionStateClasses(question)}`}
         >
