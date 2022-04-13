@@ -5,6 +5,7 @@ import { questionSelectReducer } from '@reducers/questionSelect.reducer';
 import { questionsReducer } from '@reducers/questions.reducer';
 import { scoreReducer } from '@reducers/score.reducer';
 import { userReducer } from '@reducers/user.reducer';
+import { gameStatusReducer } from '@reducers/gameStatus.reducer';
 
 const reducers = {
   answersReducer,
@@ -12,9 +13,9 @@ const reducers = {
   questionsReducer,
   scoreReducer,
   userReducer,
+  gameStatusReducer
 };
 
 export const rootReducers = combineReducers(
   reducers
 );
-

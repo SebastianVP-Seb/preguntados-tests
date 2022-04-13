@@ -28,20 +28,22 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
     "babel-jest": "^27.5.1",
     "babel-loader": "^8.2.4",
+    "connect-api-mocker": "^1.10.0",
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^3.4.1",
+    "dotenv-webpack": "^7.1.0",
     "file-loader": "^6.2.0",
     "html-loader": "^3.1.0",
     "jest-cli": "^27.5.1",
     "jest": "^27.5.1",
     "mini-css-extract-plugin": "^2.6.0",
     "redux-devtools-extension": "^2.13.9",
-    "sass-loader": "^12.6.0",
     "sass": "^1.50.0",
+    "sass-loader": "^12.6.0",
     "terser-webpack-plugin": "^5.3.1",
+    "webpack": "^5.72.0",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.8.1",
-    "webpack": "^5.72.0"
+    "webpack-dev-server": "^4.8.1"
   },
   "dependencies": {
     "react": "^17.0.2",
@@ -49,6 +51,7 @@
     "react-icons": "^4.3.1",
     "react-redux": "^7.2.8",
     "redux": "^4.1.2",
+    "redux-thunk": "^2.4.1",
     "uuid": "^8.3.2"
   }
 }
