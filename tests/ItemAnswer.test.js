@@ -7,7 +7,6 @@ import { answerMockTest } from './utils';
 
 describe('probando el inicio de la aplicacion', () => {
 
-  // let wrapper;
   const props = {
     index: 'A',
     title: 'Pregunta Titulo dos',
@@ -80,7 +79,7 @@ describe('probando el inicio de la aplicacion', () => {
     });
   });
 
-  test('debria renderizar un arreglo de componentes', () => {
+  test('debria renderizar un arreglo de componentes de card_answer', () => {
     const wrapper = mount(
       <>
         {answerMockTest.map(answer => (
