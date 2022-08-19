@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { userLoginAction2 } from '@actions/user.actions';
+import { userLoginAction2 } from '../../actions/user.actions';
 
 const initialInfoAlert = {type: '', message: ''};
 
@@ -10,10 +10,15 @@ export const Login = () => {
   const [infoAlert, setInfoAlert] = useState(initialInfoAlert);
 
   const handleSubmitLogin = (e) => {
+    console.log('click al btn')
+    //c.l para los tests
+    // console.log(e);
+    // console.log(e.target.name.value)
     e.preventDefault();
     const form = Object.fromEntries(new FormData(e.target));
+    // console.log(form);
     if (form.name) {
-      dispatch( userLoginAction2(form) );
+      dispatch( userLoginAction2(form));
       setInfoAlert(initialInfoAlert);
     } else {
       setInfoAlert({type: 'danger', message: 'Escribe un nombre valido'});
@@ -38,6 +43,7 @@ export const Login = () => {
         <button
           type="submit"
           className='button is-primary'
+          onClick={()=>handleSubmitLogin}
         >Iniciar</button>
       </div>
     </form>

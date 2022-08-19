@@ -22,7 +22,7 @@ module.exports = ( request, response ) => {
         })
       }
     } else {
-      response.status(400).send({
+      response.status(200).send({
         status: `success`,
         data: questions,
       })

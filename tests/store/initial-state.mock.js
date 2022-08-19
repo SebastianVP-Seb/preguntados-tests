@@ -311,7 +311,7 @@ export const userReducer = {
 
 export const gameStatusReducer = {
   currentQuestionIndex: 0
-}
+};
 
 export const initialStateStoreMock = {
   answersReducer,
